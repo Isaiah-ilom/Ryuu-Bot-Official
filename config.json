@@ -1,9 +1,9 @@
 {
-    "prefix": "/",
-    "owner": "Owner Name",
-    "botname": "Bot Name",
+    "prefix": "¥",
+    "owner": "!Morgan Walker",
+    "botname": "Ari Velá",
     "apiOptions": {
-        "forceLogin": false,
+        "forceLogin": true ,
         "logLevel": "silent",
         "selfListen": false,
         "autoReconnect": false,
@@ -15,7 +15,7 @@
         "listenEvents": true
     },
     "adminBot": [
-        "Owner UID"
+        "61560827459028"
     ],
     "autoLoad": true,
     "autopost": true,
