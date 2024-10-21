@@ -3,7 +3,7 @@
     "owner": "!Morgan Walker",
     "botname": "Ari Velá",
     "apiOptions": {
-        "forceLogin": true ,
+        "forceLogin": false,
         "logLevel": "silent",
         "selfListen": false,
         "autoReconnect": false,
