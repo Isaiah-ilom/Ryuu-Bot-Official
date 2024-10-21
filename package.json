@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -27,9 +28,11 @@
     "puppeteer-core": "^23.3.1",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-recaptcha": "^3.6.8",
-    "request": "^2.53.0",
     "tough-cookie": "^5.0.0",
     "tough-cookie-file-store": "^2.0.3",
     "websocket-stream": "^5.5.0"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
