@@ -1,22 +1,42 @@
+const axios = require("axios");
+
 module.exports = {
-    name: "help",
-    description: "Lists all available commands.",
+    name: "profile",
+    description: "📱 View user profile with style",
     prefixRequired: true,
     adminOnly: false,
-    async execute(api, event, args, commands) {
-        const { threadID, messageID } = event;
+    async execute(api, event, args) {
+        const { threadID, messageID, senderID } = event;
+        const targetID = Object.keys(event.mentions)[0] || senderID;
 
-        let helpMessage = `📜 | ${global.convertToGothic('Command List')}\n\n`;
+        try {
+            const userInfo = await api.getUserInfo(targetID);
+            const threadInfo = await api.getThreadInfo(threadID);
+            const user = userInfo[targetID];
 
-        let commandList = Array.from(commands.keys()).map((name, index) => {
-            return `${index + 1}. ${global.convertToGothic(name)}`;
-        }).join('\n');
+            const msg = `╔═══ 《 User Profile 》 ═══╗\n` +
+                       `║ 👤 Name: ${user.name}\n` +
+                       `║ 🆔 UID: ${targetID}\n` +
+                       `║ 👥 Gender: ${user.gender === 1 ? "Female" : user.gender === 2 ? "Male" : "Other"}\n` +
+                       `║ 🌟 Profile URL: ${user.profileUrl}\n` +
+                       `║\n` +
+                       `║ 💭 Current Group:\n` +
+                       `║ 📢 ${threadInfo.threadName}\n` +
+                       `║ 👥 Members: ${threadInfo.participantIDs.length}\n` +
+                       `╚════════════════════════╝`;
 
-        helpMessage += commandList + `\n\n`;
-        helpMessage += `Total Commands: [ ${commands.size} ]\n`;
-        helpMessage += `Prefix: [ ${global.convertToGothic(global.config.prefix)} ]\n`;
-        helpMessage += `Created By: ${global.convertToGothic(global.owner || 'Unknown')}\n`;
+            const imgPath = "./cache/profile.jpg";
+            const profilePic = await axios.get(`https://graph.facebook.com/${targetID}/picture?width=512&height=512&access_token=EAAD`, { responseType: "arraybuffer" });
+            fs.writeFileSync(imgPath, Buffer.from(profilePic.data));
 
-        await api.sendMessage(helpMessage, threadID, messageID);
-    },
+            await api.sendMessage({
+                body: msg,
+                attachment: fs.createReadStream(imgPath)
+            }, threadID, messageID);
+
+            fs.unlinkSync(imgPath);
+        } catch (error) {
+            await api.sendMessage("❌ Unable to fetch profile information!", threadID, messageID);
+        }
+    }
 };
