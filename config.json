@@ -1,7 +1,7 @@
 {
-    "prefix": "¥",
-    "owner": "!Morgan Walker",
-    "botname": "Ari Velá",
+    "prefix": ".",
+    "owner": "Raphael scholar",
+    "botname": "Ilom",
     "apiOptions": {
         "forceLogin": false,
         "logLevel": "silent",
@@ -15,10 +15,10 @@
         "listenEvents": true
     },
     "adminBot": [
-        "61560827459028"
+        "61553871285563"
     ],
     "autoLoad": true,
     "autopost": true,
-    "autogreet": true, 
+    "autogreet": false, 
     "proxy": "49.157.62.203:8181" 
 }
